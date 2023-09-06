@@ -1,0 +1,34 @@
+The provided code appears to be a Python script for building a chatbot using the Microsoft Bot Framework and integrating it with the OpenAI API. The chatbot is designed to respond to user messages and provide information about a fictional company (BotTitans Pvt Ltd) and answer questions. Here's a breakdown of the code:
+
+Import Statements:
+
+The script begins by importing various libraries and modules necessary for building the chatbot and interacting with external services. Some of the key libraries include BotFrameworkAdapter for handling bot interactions, openai for using the OpenAI API, and aiohttp for setting up a web server.
+Configuration:
+
+The script reads configuration settings and API keys from external files (config.py, Database.json, company_info.json, and faq.json). These files likely contain sensitive information like authentication credentials and company data.
+Bot Initialization:
+
+The Bot Framework Adapter is configured with the provided settings and stored in the adapter variable. This adapter handles incoming messages and manages bot responses.
+Simulated Database and Company Information:
+
+The script loads simulated database data from Database.json and company information from company_info.json into respective variables. These datasets are used to provide responses to user queries.
+on_turn Function:
+
+This function is an asynchronous handler for incoming bot messages. It checks the type of the received activity (e.g., a user message) and determines the appropriate response.
+If the user's message is "faq," it loads frequently asked questions from faq.json and creates response cards with buttons for each question.
+If the user's message matches a key in the fake database (fake_database), it generates specific responses based on the user's input. These responses include information about company values, team members, departments, and more.
+If the user's message doesn't match any specific condition, it uses the OpenAI API (openai.Completion.create) to generate a response based on the user's input.
+Finally, it sends the generated response back to the user.
+Adaptive Card for Initial Interaction:
+
+If the incoming activity is not a user message (e.g., the bot is initiated), it sends an adaptive card as an initial message with options for the user to choose from. These options include "Company Information," "Payroll," "Buddy/ My Point Of Contact," and "FAQ."
+Web Server Setup:
+
+The script sets up a web application using the aiohttp library to listen for incoming messages at the /api/messages endpoint.
+messages Function:
+
+This function handles incoming HTTP POST requests to the /api/messages endpoint. It processes the incoming activity and invokes the on_turn function to handle the bot's response.
+Main Execution:
+
+The script runs the web application using web.run_app. It listens on localhost at port 3978.
+In summary, this script sets up a chatbot that can answer user queries about a fictional company. It uses both pre-defined responses from data files and the OpenAI API to generate dynamic responses based on user input. The chatbot's functionality is triggered via HTTP POST requests to the /api/messages endpoint.
